@@ -1,73 +1,31 @@
 <?php
 
-class Author {
-    public $name;
-    public $description;
+require_once 'Author.php';
+require_once 'Publisher.php';
+require_once 'Book.php';
 
-}
 
-class Publisher {
-    public $name;
-    public $address;
-    public$phone;
+$author = new Author("J.K. Rowling", "Penulis dari seri Harry Potter");
 
-    public function setPhone($phone) {
-        $this->phone = $phone;
-    }
 
-    public function getPhone() {
-        return $this->phone;
-    }
+$publisher = new Publisher("Bloomsbury", "50 Bedford Square, London");
+$publisher->setPhone("123456789");
 
-}
+$book = new Book(9780747532743, "Harry Potter and the Philosopher's Stone", "Novel fantasi", "Fantasy", "English", 223, $author->name, $publisher->name);
 
-class Book {
-    public $ISBN;
-    public $title;
-    public $description;
-    public $category;
-    public $language;
-    public $numberOfPage;
-    public $author;
-    public $publisher;
-
-    public function showAll() {
-        return [
-            'ISBN' => $this->ISBN,
-            'Title' => $this->title,
-            'Description' => $this->description,
-            'Language' => $this->language,
-            'Number of Page' => $this->numberOfPage,
-            'Author' => $this->author,
-            'Publisher' => $this->publisher,
-        ];
-    }
-
-    public function detail($ISBN) {
-        if ($this->ISBN == $ISBN) {
-            return $this->showAll();
-        }
-        return null;
-    }
-}
-
-$author = new Author();
-$author->name = "Elex Media Komputindo";
-$author->description = "Penulis komik";
-
-$publisher = new Publisher();
-$publisher->name = "Gramedia";
-$publisher->address = "Jakarta";
-$publisher->setPhone("+62 21 548 3008");
-
-$book = new Book();
-$book->ISBN = 9786230048975;
-$book->title = "Blue Lock 10";
-$book->description = "Blue Lock tidak menceritakan kisah pemain di suatu turnamen sepakbola seperti pada umumnya. Blue Lock memiliki sedikit kesamaan dengan Squid Game. Yaitu menyeleksi 300 peserta, melakukan serangkaian permainan dengan sistem gugur, sehingga akan tersisa 1 orang sebagai pemenang";
-$book->category = "Komik";
-$book->language = "Indonesia";
-$book->numberOfPage = 200;
-$book->author = $author->name;
-$book->publisher = $publisher->name;
-
+echo "Informasi Buku:\n";
 print_r($book->showAll());
+
+echo "Detail Buku dengan ISBN 9780747532743:\n";
+print_r($book->detail(9780747532743));
+
+
+echo "Informasi Author:\n";
+print_r($author->show('name'));
+
+echo "Informasi Publisher dan Nomor Telepon:\n";
+echo "Nama: " . $publisher->name . "\n";
+echo "Alamat: " . $publisher->address . "\n";
+echo "Telepon: " . $publisher->getPhone() . "\n";
+
+?>
